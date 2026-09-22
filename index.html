@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ANATO3D</title>
+    <meta
+      name="description"
+      content="Visualização interativa da anatomia humana em 3D com detecção corporal e modelos virtuais."
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand-block">
+          <p class="eyebrow">Projeto acadêmico</p>
+          <h1>ANATO3D</h1>
+        </div>
+
+        <button id="startCameraBtn" class="primary-btn" type="button">
+          INICIAR CÂMERA
+        </button>
+      </header>
+
+      <main class="content">
+        <section class="viewer-panel" aria-labelledby="viewer-title">
+          <h2 id="viewer-title" class="sr-only">Visualização da câmera</h2>
+
+          <div class="video-stage">
+            <video id="video" autoplay playsinline muted></video>
+            <canvas id="poseCanvas"></canvas>
+            <div id="sceneContainer" aria-label="Visão 3D do cérebro e da cabeça"></div>
+          </div>
+
+          <div class="status-row">
+            <span id="statusPill" class="status-pill not-detected" aria-live="polite">
+              Corpo não detectado
+            </span>
+          </div>
+        </section>
+
+        <aside class="side-panel">
+          <h2>ÓRGÃOS</h2>
+
+          <label class="organ-toggle">
+            <input type="checkbox" checked disabled />
+            <span>Cérebro</span>
+          </label>
+
+          <label class="organ-toggle">
+            <input type="checkbox" checked disabled />
+            <span>Coração</span>
+          </label>
+
+          <label class="organ-toggle">
+            <input type="checkbox" checked disabled />
+            <span>Pulmões</span>
+          </label>
+
+          <div class="info-box">
+            <p>
+              Os modelos virtuais são posicionados a partir de estimativas anatômicas,
+              baseadas em pontos corporais detectados pela câmera.
+            </p>
+            <p>
+              Esta etapa não representa visualização direta dos órgãos internos.
+            </p>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.min.js"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js"
+        }
+      }
+    </script>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
