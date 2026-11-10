@@ -233,7 +233,8 @@ function updateHeadFromFace(faceLandmarks) {
   const skullWidth = eyeDistance * 2.55;
   const scale = THREE.MathUtils.clamp(skullWidth * 2.7, 0.72, 1.35);
 
-  const targetYaw = THREE.MathUtils.clamp(yaw * 1.15, -1.15, 1.15);
+  // The camera preview is mirrored, so horizontal head rotation must be mirrored too.
+  const targetYaw = THREE.MathUtils.clamp(-yaw * 1.15, -1.15, 1.15);
   const targetPitch = THREE.MathUtils.clamp(pitch, -0.8, 0.8);
   const targetRoll = THREE.MathUtils.clamp(roll * 1.4, -1.1, 1.1);
 
