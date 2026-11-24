@@ -14,13 +14,18 @@
     <div class="app-shell">
       <header class="topbar">
         <div class="brand-block">
-          <p class="eyebrow">Projeto acadêmico</p>
+          <p class="eyebrow">Projeto acadêmico • Anatomia em Realidade Aumentada</p>
           <h1>ANATO3D</h1>
         </div>
 
-        <button id="startCameraBtn" class="primary-btn" type="button">
-          INICIAR CÂMERA
-        </button>
+        <div class="topbar-actions">
+          <button id="toggleCameraBtn" class="secondary-btn hidden" type="button">
+            PAUSAR CÂMERA
+          </button>
+          <button id="startCameraBtn" class="primary-btn" type="button">
+            INICIAR CÂMERA
+          </button>
+        </div>
       </header>
 
       <main class="content">
@@ -30,41 +35,97 @@
           <div class="video-stage">
             <video id="video" autoplay playsinline muted></video>
             <canvas id="poseCanvas"></canvas>
-            <div id="sceneContainer" aria-label="Visão 3D do cérebro e da cabeça"></div>
+            <div id="sceneContainer" aria-label="Visão 3D do cérebro, coração e pulmões"></div>
+
+            <div class="stage-hud-top">
+              <span class="hud-tag">ESPELHAMENTO ATIVO</span>
+              <span id="fpsBadge" class="hud-tag">3D PRONTO</span>
+            </div>
           </div>
 
           <div class="status-row">
             <span id="statusPill" class="status-pill not-detected" aria-live="polite">
               Corpo não detectado
             </span>
+
+            <div class="quick-toggles">
+              <label class="chip-toggle" title="Exibir ou ocultar as linhas guia do esqueleto">
+                <input id="toggleSkeleton" type="checkbox" checked />
+                <span>Guia Corporal</span>
+              </label>
+
+              <label class="chip-toggle" title="Simular batimento cardíaco e respiração pulmonar">
+                <input id="toggleVitalMotion" type="checkbox" checked />
+                <span>Fisiologia Dinâmica</span>
+              </label>
+            </div>
           </div>
         </section>
 
         <aside class="side-panel">
-          <h2>ÓRGÃOS</h2>
+          <div class="panel-section">
+            <div class="section-header">
+              <h2>ÓRGÃOS 3D</h2>
+              <span class="section-subtitle">Clique para detalhes</span>
+            </div>
 
-          <label class="organ-toggle">
-            <input type="checkbox" checked disabled />
-            <span>Cérebro</span>
-          </label>
+            <div class="organ-card active" data-organ="brain">
+              <label class="organ-toggle">
+                <input id="toggleBrain" type="checkbox" checked />
+                <span class="organ-name">Cérebro</span>
+              </label>
+              <span id="badgeBrain" class="organ-badge waiting">Aguardando</span>
+            </div>
 
-          <label class="organ-toggle">
-            <input type="checkbox" checked disabled />
-            <span>Coração</span>
-          </label>
+            <div class="organ-card" data-organ="heart">
+              <label class="organ-toggle">
+                <input id="toggleHeart" type="checkbox" checked />
+                <span class="organ-name">Coração</span>
+              </label>
+              <span id="badgeHeart" class="organ-badge waiting">Aguardando</span>
+            </div>
 
-          <label class="organ-toggle">
-            <input type="checkbox" checked disabled />
-            <span>Pulmões</span>
-          </label>
+            <div class="organ-card" data-organ="lungs">
+              <label class="organ-toggle">
+                <input id="toggleLungs" type="checkbox" checked />
+                <span class="organ-name">Pulmões</span>
+              </label>
+              <span id="badgeLungs" class="organ-badge waiting">Aguardando</span>
+            </div>
+          </div>
+
+          <div class="panel-section controls-box">
+            <div class="slider-header">
+              <label for="opacitySlider">Opacidade dos Órgãos</label>
+              <span id="opacityValue">100%</span>
+            </div>
+            <input
+              id="opacitySlider"
+              type="range"
+              min="30"
+              max="100"
+              value="100"
+              step="5"
+            />
+          </div>
+
+          <div id="organDetailBox" class="organ-detail-box">
+            <div class="detail-header">
+              <span class="detail-tag">FICHA ANATÔMICA</span>
+              <h3 id="detailTitle">Cérebro</h3>
+            </div>
+            <p id="detailDesc">
+              Principal órgão do sistema nervoso central, localizado na caixa craniana. Controla funções cognitivas, sensoriais e motoras.
+            </p>
+            <div class="detail-meta">
+              <span id="detailRegion">Região: Craniana</span>
+              <span id="detailRef">Ancoragem: Malha Facial / Orbital</span>
+            </div>
+          </div>
 
           <div class="info-box">
             <p>
-              Os modelos virtuais são posicionados a partir de estimativas anatômicas,
-              baseadas em pontos corporais detectados pela câmera.
-            </p>
-            <p>
-              Esta etapa não representa visualização direta dos órgãos internos.
+              Os modelos virtuais são posicionados por estimativa anatômica baseada em pontos corporais detectados em tempo real.
             </p>
           </div>
         </aside>
